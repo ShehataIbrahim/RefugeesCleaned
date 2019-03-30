@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>נאָמען：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'Male','ווייַבלעך'}}">
+		<ul>
+			<li><span>געשלעכט：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>עלטער：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'ערשטע געזונט קאָנטראָל','אינערלעכער מעדיסינע','COPD','רעספּעראַטאָרי מעדיצין','צוקערקרענק'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>פראגע צופרידן</th>
+                <th>ענטפער</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>צי איר האָבן קיין אַלערדזשיז?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>צי איר רויך?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>זענען דאָרט אַבנאָרמאַל אַפּעטיט?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>צי איר האָבן סאַבדזשעקטיוו סימפּטאָמס?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>ווען זענען סאַבדזשעקטיוו סימפּטאָמס פון?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>וואָס זענען די סימפּטאָמס?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>האָבן איר לעצטנס געזאָגט?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>האָבן איר אלץ געווען שפּיטאָליז אָדער כירורגיע?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>וואָס איז די קרענק נאָמען?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>איז עס קיין מעדיצין וואָס איר זענט דערווייַל געטרונקען?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>ווי פילע סיגאַרעטטעס טאָן איר רייכערן אַ טאָג?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>צי איר אָפט באַקומען טאַנגגאַלד ווי באַלד ווי איר וועקן זיך אין דער מאָרגן?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>צי איר אָפט האָבן וויזיז (Zezei, יו יו)?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>האָט איר סנאָרעד אין די לעצטע 3 חדשים?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>האָבן איר שוין געזאָגט דורך דיין משפּחה אַז ברידינג זאל האַלטן אין שלאָפן אין דער פאַרגאַנגענהייַט 3 חדשים?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>צי האָט איר פילן פאַרשלאָפן און סליפּינג אָדער באַקומען שלאָפנדיק אין די טעגלעך אָדער ווען איר זאָל בלייַבן אין די לעצטע 3 חדשים?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>איז עס גרינג צו דאָרשטיק?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>האָבן איר שוין דערציילט אַז בלוט צוקער איז הויך?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>טוט דיין משפּחה האָבן צוקערקרענק?</td>
+					<td th:text='${(d.answer == "1") ? "Yes" : "ניין"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">שיקן אַ אָנזאָג</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("צי איר ווילן צו קלאָץ אויס?")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("איך פארלאנגט אַ אָנזאָג");
+}
+/*]]>*/
+</script>
+</html>

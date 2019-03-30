@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>Inoa：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'Male','ʻO Male'}}">
+		<ul>
+			<li><span>ʻAe：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>Makahiki：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'ʻO ka helu hōʻike ola mua','Ka lāʻau hana i loko','ʻO COPD','ʻO ka lāʻau olakino','ʻO ka maʻi maʻi'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>Nā nīnau nīnau</th>
+                <th>Pane</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>Loaʻa iāʻoe kekahi mau mea pāʻokoʻa?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>Pākēʻoe?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>Loaʻa kahiʻai nui?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>Loaʻa iāʻoe nā hōʻike hōʻike?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>I ka makahiki hea ka hopena o ka hopena?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>He aha nā hōʻailona?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>Ua kūkākūkāʻiaʻoe i kēia manawa?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>Ua loaʻa iāʻoe i ka hoʻomaha maʻi aiʻole ke kauʻana?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>He aha ka inoa o ka maʻi?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>Aia kekahi lāʻau e laʻau aiʻoe i kēia manawa?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>ʻEhia mau paʻikeke e pāhihiʻoe i ka lā?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>Hiki iāʻoe ke hoʻopuni pinepine i kou alaʻana i ke kakahiaka?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>Loaʻa iāʻoe he mau lio (Zezei, Hugh Hugh)?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>Uaʻokiʻoe i loko o nā mahina he 3 i hala?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>Ua haʻiʻia iāʻoe e kaʻohana e hoʻomaha ai a pau i ka hiamoe i nā mahina he 3 i hala iho nei?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>Ua hopohopo aneiʻoe e hiamoe ana a hiamoe aiʻole e hiamoe ana i ke ao aiʻole i ka manawa e noho aiʻoe i nā mahina 3 i hala?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>He mea maʻalahi ka make wai?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>Ua'ōleloʻiaʻoe i ke kiʻekiʻe o ka blood sugar?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>Loaʻa i ka maʻi maʻisā o kouʻohana?</td>
+					<td th:text='${(d.answer == "1") ? "ʻAe" : "ʻAʻole"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">E hoʻouna i kahi memo</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("Makemakeʻoe e puka i waho?")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("Ua noi au e hoʻolaha");
+}
+/*]]>*/
+</script>
+</html>

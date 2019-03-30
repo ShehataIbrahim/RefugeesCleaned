@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>Lub npe：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'Txiv neej','Poj niam'}}">
+		<ul>
+			<li><span>Pw ua ke：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>Hnub nyoog：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'Kev kuaj mob thawj zaug','Internal tshuaj','COPD','Cov tshuaj tua kab mob','Ntshav qab zib'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>Cov lus nug</th>
+                <th>Teb</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>Koj puas muaj kev fab tshuaj?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>Koj puas haus luam yeeb?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>Puas muaj kev tsis txaus siab?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>Koj puas muaj cov tsos mob tus yam ntxwv?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>Thaum twg yog cov tsos mob ntawm tus kheej?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>Cov tsos mob zoo li cas?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>Koj puas tau ntsib nrog tsis ntev tas los no?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>Koj puas tau mus pw hauv tsev kho mob lossis phais?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>Tus kab mob npe li cas?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>Puas muaj cov tshuaj uas koj tab tom haus tam sim no?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>Ib hnub twg koj haus luam yeeb pes tsawg?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>Koj feem ntau puas tau tangled thaum koj sawv thaum sawv ntxov?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>Koj puas muaj feem ntau wheezes (Zezei, Hugh Hugh)?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>Koj puas tau xaus rau hauv 3 lub hlis dhau los?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>Koj puas tau hais qhia los ntawm koj tsev neeg tias kev ua pa yuav nres tau thaum pw tsaug zog hauv 3 lub hlis dhau los?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>Koj puas tau tsaug zog thiab tsaug zog los yog pw tsaug zog thaum nruab hnub lossis thaum twg koj yuav tsum nyob hauv 3 lub hlis dhau los?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>Nws puas yooj yim rau nqhis dej?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>Koj puas tau hais tias ntshav qab zib siab?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>Koj tsev neeg puas muaj ntshav qab zib?</td>
+					<td th:text='${(d.answer == "1") ? "Muaj" : "Tsis yog"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">Xa lus</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("Koj puas xav sau tawm?")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("Kuv tau thov ceeb toom");
+}
+/*]]>*/
+</script>
+</html>

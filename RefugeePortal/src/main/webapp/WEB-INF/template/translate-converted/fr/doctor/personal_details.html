@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>Nom：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'Homme','Femme'}}">
+		<ul>
+			<li><span>Sexe：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>Âge：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'Bilan de santé initial','Médecine interne','MPOC','Médecine respiratoire','Le diabète'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>Contenu de la question</th>
+                <th>Répondre</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>Avez-vous des allergies?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>Fumez-vous?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>Y a-t-il un appétit anormal?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>Avez-vous des symptômes subjectifs?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>Quand sont les symptômes subjectifs?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>Quels sont les symptômes?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>Avez-vous été consulté récemment?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>Avez-vous déjà eu une hospitalisation ou une chirurgie?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>Quel est le nom de la maladie?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>Y at-il un médicament que vous buvez actuellement?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>Combien de cigarettes fumez-vous par jour?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>Avez-vous souvent s'emmêler dès que vous vous réveillez le matin?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>Avez-vous souvent des sifflements (Zezei, Hugh Hugh)?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>Avez-vous ronflé au cours des 3 derniers mois?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>Votre famille vous a-t-elle dit que la respiration pouvait s'arrêter pendant le sommeil au cours des 3 derniers mois?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>Avez-vous eu sommeil, dormi ou dormi pendant la journée ou lorsque vous deviez rester au cours des 3 derniers mois?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>Est-il facile d'avoir soif?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>Avez-vous été informé que la glycémie est élevée?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>Est-ce que votre famille a le diabète?</td>
+					<td th:text='${(d.answer == "1") ? "Oui" : "Non"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">Envoyer un message</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("Voulez-vous vous déconnecter?")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("J'ai demandé une notification");
+}
+/*]]>*/
+</script>
+</html>

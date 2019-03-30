@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>Aha：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'Nwoke','Nwanyi'}}">
+		<ul>
+			<li><span>Mmekọahụ：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>Afọ：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'Nlekọta ahụ ike mbụ','Ọgwụ Ọgwụ','COPD','Ọgwụ ahụ ike','Ọrịa shuga'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>Jụọ ọdịnaya</th>
+                <th>Azịza</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>Ị nwere ihe ọ bụla allergies?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>Ị na-aṅụ sịga?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>Enwere agụụ dịgasị iche?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>Ị nwere ihe mgbaàmà nke onwe?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>Kedu mgbe mgbaàmà nke onwe onye si?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>Kedu ihe mgbaàmà ahụ?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>Ọ dịla anya a nyochaa gị na nso nso a?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>Ị nweela ụlọ ọgwụ ma ọ bụ ịwa ahụ?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>Kedu aha ọrịa ahụ?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>Enwere ọgwụ ọ bụla ị na-aṅụ ugbu a?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>Ego ole ka ị na-aṅụ sịga n'ụbọchị?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>Ị na-ejikarị ụra mgbe ị tetara n'ụtụtụ?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>Ị na-enwekarị mgbanaka (Zezei, Hugh Hugh)?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>Ị gbarịrị n'ime ọnwa atọ gara aga?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>Ndi ezinulo gị agwala gị ka iku ume nwere ike ịkwụsị n'oge ụra n'ime ọnwa atọ gara aga?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>I chere na ị na-ehi ụra ma na-ehi ụra ma ọ bụ na-ehi ụra n'ehihie maọbụ mgbe ị ga-anọ n'ime ọnwa 3 gara aga?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>Mmiri na-agụkarị ya agụụ?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>Agwarala gị na ọbara shuga dị elu?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>Ezinụlọ gị nwere ọrịa shuga?</td>
+					<td th:text='${(d.answer == "1") ? "Ee" : "Mba"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">Zipu ozi</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("Ịchọrọ ịpụ apụ?")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("Achọrọ m akwụkwọ ngosi");
+}
+/*]]>*/
+</script>
+</html>

@@ -1,0 +1,31 @@
+<div xmlns:th="http://www.thymeleaf.org">
+<p><img th:src="@{${'/imgs/@1x/img0' + categoryID + '.png'}}"
+        th:attr="srcset=@{${'/imgs/@1x/img0' + categoryID + '.png'}} + ' 1x, ' + @{${'/imgs/@2x/img0' + categoryID + '.png'}} + ' 2x'"
+        width="980" height="256" alt="" /></p>
+<table>
+    <colgroup>
+        <col width="17%" />
+        <col width="17%" />
+        <col width="33%" />
+        <col width="33%" />
+    </colgroup>
+    <tr>
+        <th>Date</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Interview Result</th>
+    </tr>
+    <tr th:each="r : ${resultList}">
+        <td th:text="${r.answeredAt}">2018/02/20</td>
+        <td th:text="${r.namminID}">501</td>
+        <td th:text="${r.namminName}">Mark Jhonson</td>
+        <td class="interview-result" th:switch="${r.result}">
+            <a th:case="0" th:href="@{screening_detail(s_id=${r.screeningID},c_id=${categoryID},n_id=${r.namminID})}">✕Da potvrdite</a>
+            <!--/*/
+            <a th:case="1" th:href="@{screening_detail(s_id=${r.screeningID},c_id=${categoryID},n_id=${r.namminID})}">△Obrati pažnju</a>
+            <a th:case="2" th:href="@{screening_detail(s_id=${r.screeningID},c_id=${categoryID},n_id=${r.namminID})}">〇Nema problema</a>
+            /*/-->
+        </td>
+    </tr>
+</table>
+</div>

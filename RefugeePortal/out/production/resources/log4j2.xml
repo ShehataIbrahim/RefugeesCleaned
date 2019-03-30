@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration xmlns:xi="http://www.w3.org/2001/XInclude" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+          %x %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%t] %L %c : %m%n%ex
+        </Property>
+    </Properties>
+    <Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+    	<RollingFile name="FileAppender" fileName="../standalone/log/refugees.log" 
+             	filePattern="../standalone/log/refugees-%d{yyyy-MM-dd}-%i.log">
+    		<PatternLayout>
+        		<Pattern>${LOG_PATTERN}</Pattern>
+				<ignoresException value="false" />
+    		</PatternLayout>
+    		<Policies>
+      	  		<SizeBasedTriggeringPolicy size="10MB" />
+    		</Policies>
+    			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+    </Appenders>
+    <Loggers>
+		<Root level="all">
+            <AppenderRef ref="FileAppender" />
+			<AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+
+</Configuration>

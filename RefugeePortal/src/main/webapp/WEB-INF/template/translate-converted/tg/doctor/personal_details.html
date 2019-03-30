@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>Ном：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'Мард','Духтар'}}">
+		<ul>
+			<li><span>Ҷинс：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>Синну сол：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'Санҷиши ибтидоии тандурустӣ','Тибби дохилӣ','COPD','Тибби нафаскашӣ','Диабети қанд'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>Мӯҳтавои савол</th>
+                <th>Ҷавоб диҳед</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>Оё шумо аллергия доред?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>Шумо сигор мекашед?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>Оё ишғоли ғайричашмдошт вуҷуд дорад?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>Оё шумо аломатҳои суботи дошта доред?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>Ҳангоми нишонаҳои объективӣ кадомҳоянд?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>Саволҳо чӣ гунаанд?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>Ба наздикӣ маслиҳат кардаед?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>Оё ягон бор дар беморхона ё ҷарроҳӣ будед?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>Номи беморӣ чист?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>Оё ягон доруе, ки ҳоло шумо нӯшидаед?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>Як рӯз дар як шабонарӯз тамоку мекашед?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>Оё шумо зуд ба зудӣ дар субҳ бедор мешавед?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>Оё шумо аксар вақт дар якҷоягӣ (Zezei, Хью Хью) доранд?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>Оё шумо дар 3 моҳи охир хоболуд будед?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>Оё шумо аз оилаи худ огоҳ кардаед, ки нафаскашӣ дар давоми 3 моҳ дар хоб монад?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>Оё шумо ҳисси хоб ва хобро дидед ё дар рӯз ё хоб хобед ё вақте ки шумо бояд дар 3 моҳи охир монед?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>Оё ташхис додан осон аст?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>Оё шумо гуфтед, ки шакар хун баланд аст?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>Оё оилаи шумо диабет дорад?</td>
+					<td th:text='${(d.answer == "1") ? "Бале" : "Не"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">Паём гузоред</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("Оё шумо мехостед, ки гузоред?")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("Ман огоҳинома дархост кардам");
+}
+/*]]>*/
+</script>
+</html>

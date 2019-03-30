@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>Namme：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'Male','Frou'}}">
+		<ul>
+			<li><span>Sex：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>Age：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'Begjin sûnens kontrolearje','Internal Medicine','COPD','Respiratory medicine','Diabetes'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>Fraach ynhâld</th>
+                <th>Reply</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>Hawwe jo allergyen?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>Bist rook?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>Binne der abnormale appetit?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>Hasto subjektive symptomen?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>Wannear binne subjektive symptomen fan?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>Wat binne de symptomen?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>Hawwe jo koartlyn konsultearre?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>Hawwe jo ea in sikehuzing of surgery?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>Wat is de sykte namme?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>Is der medisinen dy't jo op dit stuit drinke?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>Hoefolle sigaretten jouwe jo in dei?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>Hawwe jo faak ferwûne as jo wekker yn 'e moarn?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>Hawwe jo faaks winters (Zezei, Hugh Hugh)?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>Hawwe jo yn 'e lêste 3 moannen snorreare?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>Hawwe jo troch jo famylje ferteld dat de smeekjen yn 'e lêste trije moannen ûnder sliep stopje kin?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>Hawwe jo sliepfrije en sliepen of sliepen yn 'e dageyn of wannear't jo yn' e ôfrûne 3 moannen bliuwe moatte?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>Is it maklik te swierderjen?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>Hawwe jo sein dat bloedzucker heech is?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>Hat dyn famylje sikehuzes?</td>
+					<td th:text='${(d.answer == "1") ? "Ja" : "Nee"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">Stjoer in berjocht</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("Wolle jo jo útlogje?")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("Ik frege in notifikaasje");
+}
+/*]]>*/
+</script>
+</html>

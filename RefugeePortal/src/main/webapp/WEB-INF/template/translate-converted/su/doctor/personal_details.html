@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>ngaran lengkep：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'lalaki','awewe'}}">
+		<ul>
+			<li><span>génder：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>umur：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'cek kaséhatan awal','Kedokteran internal','COPD','respirators médis','diabetes'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>eusi panalungtikan</th>
+                <th>jawaban</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>Dupi anjeun gaduh alergi sagala?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>Anjeun haseup rokok?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>Dupi anjeun ngagaduhan Abnormalitas napsu?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>Dupi anjeun gaduh gejala?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>Mangrupa gejala subjektif tina waktu sabudeureun?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>Naon gejala?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>Anjeun narima ujian médis panganyarna?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>Dupi anjeun kantos nampi hiji rumah sakit atanapi bedah dugi ayeuna?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>Naon nami kasakit?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>Nyaeta aya ubar anjeun minum ayeuna?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>Sabaraha dinten ieu, anjeun ngaroko?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>Naha anjeun mindeng sputum aub geuwat bangun isuk-isuk?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>Wheezing Dupi anjeun gaduh alus (wheezing, whistling) nyaeta?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>Anjeun nyegrek dina tilu bulan?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>Dina tilu bulan, naha aya naon deui ieu ceuk ti kulawarga sarta kadangkala ngeureunkeun engapan salila saré?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>Dina tilu bulan, zona waktos kedah salila poé atawa tempat, naha éta éta mungkin yen sleepiness ieu dozing atanapi janten dipikaresep murag saré kuat?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>Nyaeta tikoro Gampang haus?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>Dupi anjeun gula getih ieu bisa disebutkeun tinggi?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>Dupi anjeun gaduh leuwih diabetes di kulawarga?</td>
+					<td th:text='${(d.answer == "1") ? "nuhun" : "teu"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">Kirim pesen</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("Anjeun yakin rék kaluar.")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("Kuring nanya bewara");
+}
+/*]]>*/
+</script>
+</html>

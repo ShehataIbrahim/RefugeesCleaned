@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+		
+    <!-- component-scanの定義 -->
+    <context:component-scan base-package="jp.co.people.core.app.datasources" />
+    
+    <bean id="setAtomikosSystemProps"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetClass" value="java.lang.System" />
+				<property name="targetMethod" value="getProperties" />
+			</bean>
+		</property>
+		<property name="targetMethod" value="putAll" />
+		<property name="arguments">
+			<props>
+				<prop key="com.atomikos.icatch.no_file">true</prop>
+				<prop key="com.atomikos.icatch.service">com.atomikos.icatch.standalone.UserTransactionServiceFactory
+				</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+		depends-on="setAtomikosSystemProps" init-method="init" destroy-method="shutdownForce">
+		<constructor-arg>
+			<props>
+				<prop key="com.atomikos.icatch.max_timeout">1500000</prop>
+				<prop key="com.atomikos.icatch.default_jta_timeout">1500000</prop>
+				<prop key="com.atomikos.icatch.max_actives">200</prop>
+				<prop key="com.atomikos.icatch.serial_jta_transactions">false</prop>
+				<prop key="com.atomikos.icatch.log_base_dir">/usr/tomcat8/logs/peoplecore/transaction</prop>
+				<prop key="com.atomikos.icatch.log_base_name">poeplecore_tx_log</prop>
+				<prop key="com.atomikos.icatch.tm_unique_name">poeplecore_tx</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+    
+    <!-- Atomikos の TransactionManager 実装 -->
+    <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager" depends-on="userTransactionService">
+        <property name="forceShutdown" value="true" />
+    </bean>
+    
+    <!-- Atomikos の UserTransaction 実装 -->
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp" depends-on="userTransactionService">
+		<property name="transactionTimeout" value="1500" />
+	</bean>
+	
+	<!-- TransactionManager 実装 -->
+	<bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" depends-on="userTransactionService">
+		<property name="transactionManager" ref="atomikosTransactionManager" />
+		<property name="userTransaction" ref="atomikosUserTransaction" />
+		<property name="allowCustomIsolationLevels" value="true" />
+	</bean>
+
+	<!-- アノテーション利用の定義 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <!-- データソースの共通設定 -->
+    <bean id="xaDataSourceBase" abstract="true" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
+        <property name="xaDataSourceClassName" value="org.postgresql.xa.PGXADataSource" />
+        <property name="minPoolSize" value="2" />
+        <property name="maxPoolSize" value="10" />
+        <property name="borrowConnectionTimeout" value="30" />
+        <property name="maxIdleTime" value="60" />
+        <property name="reapTimeout" value="0" />
+        <property name="maintenanceInterval" value="60" />
+        <property name="loginTimeout" value="0" />
+        <property name="maxLifetime" value="240" />
+    </bean>
+        
+    <!-- CORE用 スキーマ設定 -->
+    <bean id="core" parent="xaDataSourceBase" primary="true">
+        <property name="uniqueResourceName" value="core" />
+        <property name="xaProperties">
+            <props merge="true">
+                <prop key="ServerName">localhost</prop>
+                <prop key="PortNumber">5432</prop>
+                <prop key="DatabaseName">core</prop>
+                <prop key="User">postgres</prop>
+                <prop key="Password">password</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 健康記録 スキーマ設定 -->
+    <bean id="health" parent="xaDataSourceBase">
+        <property name="uniqueResourceName" value="health" />
+        <property name="xaProperties">
+            <props merge="true">
+                <prop key="ServerName">localhost</prop>
+                <prop key="PortNumber">5432</prop>
+                <prop key="DatabaseName">health</prop>
+                <prop key="User">postgres</prop>
+                <prop key="Password">password</prop>
+            </props>
+        </property>
+    </bean>
+
+	<!-- 個人情報 スキーマ設定 -->
+    <bean id="personal" parent="xaDataSourceBase">
+        <property name="uniqueResourceName" value="personal" />
+        <property name="xaProperties">
+            <props merge="true">
+                <prop key="ServerName">localhost</prop>
+                <prop key="PortNumber">5432</prop>
+                <prop key="DatabaseName">personal</prop>
+                <prop key="User">postgres</prop>
+                <prop key="Password">password</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

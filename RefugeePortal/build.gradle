@@ -1,0 +1,20 @@
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: "/src/main/webapp/WEB-INF/lib", include: '*.jar')
+
+    providedCompile 'org.apache.tomcat:tomcat-servlet-api:7.0.42'
+    providedCompile 'org.apache.tomcat:tomcat-jsp-api:7.0.42'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.5.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.5.Final'
+    compile group: 'org.json', name: 'json', version: '20171018'
+    // compile group: 'org.thymeleaf', name: 'thymeleaf', version: '2.0.5'
+}
+def defaultEncoding = 'UTF-8'
+compileJava {
+    options.encoding = defaultEncoding
+}

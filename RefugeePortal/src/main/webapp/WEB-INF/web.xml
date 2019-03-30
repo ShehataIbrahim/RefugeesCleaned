@@ -1,0 +1,256 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<!-- ここから難民ポータル -->
+
+	<!-- 難民ログイン画面 -->
+	<servlet>
+		<servlet-name>LoginNamminServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.LoginNamminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginNamminServlet</servlet-name>
+		<url-pattern>/login/nammin</url-pattern>
+	</servlet-mapping>
+
+	<!-- 難民ポータル画面 -->
+	<servlet>
+		<servlet-name>NamminPortalServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.NamminPortalServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NamminPortalServlet</servlet-name>
+		<url-pattern>/nammin/portal</url-pattern>
+	</servlet-mapping>
+
+	<!-- 難民基本情報画面 -->
+	<servlet>
+		<servlet-name>NamminBasicInfomationServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.NamminBasicInfomationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NamminBasicInfomationServlet</servlet-name>
+		<url-pattern>/nammin/basicinfo</url-pattern>
+	</servlet-mapping>
+
+	<!-- 難民スクリーニング情報画面 -->
+	<servlet>
+		<servlet-name>NamminScreeningServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.NamminScreeningServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NamminScreeningServlet</servlet-name>
+		<url-pattern>/nammin/screening</url-pattern>
+	</servlet-mapping>
+
+	<!-- 難民ログアウト画面 -->
+	<servlet>
+		<servlet-name>NamminLogoutServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.NamminLogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NamminLogoutServlet</servlet-name>
+		<url-pattern>/nammin/logout</url-pattern>
+	</servlet-mapping>
+
+	<!-- ここまで難民ポータル -->
+
+
+	<!-- ここから医療従事者用スクリーニング出力 -->
+
+	<!-- 医者ログイン画面 -->
+	<servlet>
+		<servlet-name>LoginDoctorServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.LoginDoctorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginDoctorServlet</servlet-name>
+		<url-pattern>/login/doctor</url-pattern>
+	</servlet-mapping>
+
+	<!-- カテゴリ一覧画面 -->
+	<servlet>
+		<servlet-name>DoctorIndexServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.DoctorIndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DoctorIndexServlet</servlet-name>
+		<url-pattern>/doctor/index.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- 問診一覧画面 -->
+	<servlet>
+		<servlet-name>DoctorScreeningListServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.DoctorScreeningListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DoctorScreeningListServlet</servlet-name>
+		<url-pattern>/doctor/screening_list.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DoctorScreeningConfirmationServlet</servlet-name>
+		<servlet-class>com.refugees.servlets.doctor.ScreenConfirmationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DoctorScreeningConfirmationServlet</servlet-name>
+		<url-pattern>/doctor/confirm</url-pattern>
+	</servlet-mapping>
+	<!-- 問診詳細画面 -->
+	<servlet>
+		<servlet-name>ScreeningDetailServlet</servlet-name>
+		<servlet-class>com.refugees.servlets.doctor.ScreeningDetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ScreeningDetailServlet</servlet-name>
+		<url-pattern>/doctor/screening_detail</url-pattern>
+	</servlet-mapping>
+
+	<!-- 医者ログアウト画面 -->
+	<servlet>
+		<servlet-name>DoctorLogoutServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.DoctorLogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DoctorLogoutServlet</servlet-name>
+		<url-pattern>/doctor/logout</url-pattern>
+	</servlet-mapping>
+	<!-- ここまで医療従事者用スクリーニング出力 -->
+
+
+	<!-- その他サーブレット -->
+	<servlet>
+		<servlet-name>TranslateOnlyServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.TranslateOnlyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TranslateOnlyServlet</servlet-name>
+		<url-pattern>/nammin/mch.html</url-pattern>
+		<url-pattern>/nammin/ncds.html</url-pattern>
+		<url-pattern>/error/500.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- API -->
+
+	<!-- パスワードハッシュ生成API -->
+	<servlet>
+		<servlet-name>PasswordHashAPIServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.PasswordHashAPIServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PasswordHashAPIServlet</servlet-name>
+		<url-pattern>/api/password</url-pattern>
+	</servlet-mapping>
+	<!-- 通知要求API -->
+	<servlet>
+		<servlet-name>NotificationRequestAPIServlet</servlet-name>
+		<servlet-class>net.hitachifbbot.servlet.NotificationRequestAPIServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NotificationRequestAPIServlet</servlet-name>
+		<url-pattern>/doctor/api/requestNotification</url-pattern>
+	</servlet-mapping>
+
+	<!-- ここまでAPI -->
+
+
+	<!-- ここからデバッグ用 -->
+
+	<!-- デバッグ画面 -->
+	<!-- <servlet> <servlet-name>DebugServlet</servlet-name> <servlet-class>net.hitachifbbot.servlet.DebugServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>DebugServlet</servlet-name> <url-pattern>/debug</url-pattern> 
+		</servlet-mapping> -->
+	<!-- ここまでデバッグ用 -->
+
+	<!-- フィルタ設定 -->
+
+	<!-- New User Login Scenario -->
+	<servlet>
+		<servlet-name>userLoginServlet</servlet-name>
+		<servlet-class>com.refugees.servlets.user.UserLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userLoginServlet</servlet-name>
+		<url-pattern>/user/login</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>userRegisterationServlet</servlet-name>
+		<servlet-class>com.refugees.servlets.user.UserRegisterationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userRegisterationServlet</servlet-name>
+		<url-pattern>/user/register</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>userHomeServlet</servlet-name>
+		<servlet-class>com.refugees.servlets.user.UserHomeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userHomeServlet</servlet-name>
+		<url-pattern>/user/authenticated/home</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>RequireNamminLoginFilter</filter-name>
+		<filter-class>net.hitachifbbot.filter.RequireNamminLoginFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>RequireDoctorLoginFilter</filter-name>
+		<filter-class>net.hitachifbbot.filter.RequireDoctorLoginFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>CommonFilter</filter-name>
+		<filter-class>net.hitachifbbot.filter.CommonFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>CSRFFilter</filter-name>
+		<filter-class>net.hitachifbbot.filter.CSRFFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>newUserSecurityFilter</filter-name>
+		<filter-class>com.refugees.filters.UserSecurityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>newUserSecurityFilter</filter-name>
+		<url-pattern>/user/authenticated/*</url-pattern>
+	</filter-mapping>
+	<!-- 難民ログインが必要なパターン -->
+	<filter-mapping>
+		<filter-name>newUserSecurityFilter</filter-name>
+		<url-pattern>/nammin/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 医者ログインが必要なパターン -->
+	<filter-mapping>
+		<filter-name>RequireDoctorLoginFilter</filter-name>
+		<url-pattern>/doctor/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 全体適用フィルタ -->
+	<filter-mapping>
+		<filter-name>CommonFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- CSRF対策が必要な部分に対するフィルタ -->
+	<filter-mapping>
+		<filter-name>CSRFFilter</filter-name>
+		<url-pattern>/nammin/logout</url-pattern>
+		<url-pattern>/doctor/logout</url-pattern>
+		<url-pattern>/doctor/api/requestNotification</url-pattern>
+	</filter-mapping>
+
+	<session-config>
+		<session-timeout>4320</session-timeout>
+	</session-config>
+
+	<!-- DB接続設定 -->
+	<resource-ref>
+		<res-ref-name>jdbc/portal</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+	<welcome-file-list>
+		<welcome-file>welcome.html</welcome-file>
+	</welcome-file-list>
+</web-app>

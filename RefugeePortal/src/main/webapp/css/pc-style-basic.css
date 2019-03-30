@@ -1,0 +1,323 @@
+/* =========================================================================================
+ STYLE : BASIC
+ LATEST UPDATE : 2018/03/16
+========================================================================================= */
+/* BASE */
+body {
+	font-size: 18px;
+	line-height: 1.35;
+	font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN W3', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+	color: rgba(51,51,51,1);
+	background-color: rgba(255,255,255,1);
+	word-break: normal;
+
+	-webkit-text-size-adjust: none;
+	-webkit-font-smoothing: antialiased;
+	}
+
+a {
+	text-decoration: none;
+}
+
+a,
+input[type="text"],
+input[type="password"],
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"],
+button {
+	-webkit-tap-highlight-color: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+}
+
+input[type="button"],
+input[type="submit"],
+select,
+button {
+	border-radius: 0;
+	-webkit-appearance: none;
+					appearance: none;
+}
+
+input::-webkit-input-placeholder {
+	color: #999999;
+}
+
+input[type="text"],
+input[type="password"] {
+	text-align: center;
+	font-size: 18px;
+	height: 44px;
+	border: 1px solid rgba(51,51,51,1);
+	-webkit-border-radius: 6px;
+		 -moz-border-radius: 6px;
+			-ms-border-radius: 6px;
+					border-radius: 6px;
+}
+
+body, div, p, nav, ul, li, a, span,
+header, section, footer, h1, h2, h3, textarea,
+input, label, dl, dt, dd {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+         -o-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+li {
+	list-style-type: none;
+}
+
+#wrapper {
+	text-align: center;
+	padding-bottom: 52px;
+}
+
+/* LARGE BUTTON */
+.btn-large a {
+	font-weight: bold;
+	line-height: 44px;
+	height: 44px;
+	color: rgba(255,255,255,1);
+	background-color: rgba(31,144,228,1);
+	display: block;
+
+	-webkit-border-radius: 6px;
+	   -moz-border-radius: 6px;
+	    -ms-border-radius: 6px;
+	        border-radius: 6px;
+}
+/* -----------------------------------------------------------------------------------------
+  INITIAL HEALTH CHECK
+  INTERNAL MEDICINE
+----------------------------------------------------------------------------------------- */
+/* HEADER */
+header {
+	height: 66px;
+	margin-bottom: 32px;
+	background-color: rgba(31,144,228,1);
+}
+
+header div {
+	width: 980px;
+	height: 66px;
+	margin: 0 auto;
+	display: -webkit-flex;
+	display:    -moz-flex;
+	display:         flex;
+	align-items: center;
+	position: relative;
+}
+
+header div h1,
+header div p  {
+	width: 50%;
+	height: inherit;
+}
+
+header div h1  {
+	text-align: left;
+	line-height: 66px;
+}
+
+header div h1 a {
+	color: rgba(255,255,255,1);
+	font-size: 20px;
+	font-weight: normal;
+}
+
+header div p  {
+	text-align: right;
+	line-height: 66px;
+}
+
+header div p a {
+	color: rgba(255,255,255,1);
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	padding: 12px;
+	border: 1px solid rgba(255,255,255,1);
+
+	-webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+          border-radius: 6px;
+}
+
+section {
+	width: 980px;
+	height: auto;
+	margin: 0 auto;
+}
+
+section h2 {
+	font-size: 24px;
+	font-weight: normal;
+	text-align: left;
+	line-height: 24px;
+	width: 100%;
+	padding-left: 2px;
+	margin-bottom: 16px;
+}
+
+/* TAB MENU */
+section ul {
+	width: 100%;
+	border-bottom: 4px solid rgba(31,144,228,1);
+	display: -webkit-flex;
+	display:    -moz-flex;
+	display:         flex;
+	align-items: center;
+	position: relative;
+}
+
+section ul li {
+	width: 20%;
+}
+
+.menu a {
+	color: rgba(31,144,228,1);
+	text-align: center;
+	line-height: 40px;
+	width: 100%;
+	height: 40px;
+	display: inline-block;
+}
+
+#menu-selected a {
+	color: rgba(255,255,255,1);
+	background-color: rgba(31,144,228,1);
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}
+
+/* LIST AREA */
+.list-area img {
+	vertical-align: bottom;
+}
+
+.list-area table {
+	width: 100%;
+}
+
+.list-area table th {
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 16px;
+	padding: 8px;
+}
+
+.list-area table tr {
+	border-bottom: 1px solid rgba(204,204,204,1);
+}
+
+.list-area table td {
+	padding: 6px;
+}
+
+.list-area table td a {
+	line-height: 40px;
+	width: 300px;
+	height: 40px;
+	display: inline-block;
+	border: 1px solid rgba(204,204,204,1);
+	color: rgba(31,144,228,1);
+	background-position: 262px center;
+	background-repeat: no-repeat;
+
+	-webkit-border-radius: 6px;
+		 -moz-border-radius: 6px;
+			-ms-border-radius: 6px;
+					border-radius: 6px;
+}
+
+.interviewee-name a {
+	background-image: url(../imgs/icon01.png);
+}
+
+.interview-result a {
+	background-image: url(../imgs/icon02.png);
+}
+/* -----------------------------------------------------------------------------------------
+  PERSONAL DETAILS
+----------------------------------------------------------------------------------------- */
+#static-list-area h2 {
+	margin-bottom: 8px;
+}
+
+#static-list-area h2 span {
+	font-size: 12px;
+}
+
+#static-list-area ul {
+	margin-bottom: 52px;
+	border: none;
+}
+
+#static-list-area ul li:first-child {
+	text-align: left;
+	width: 20%;
+	padding-left: 2px;
+}
+
+#static-list-area ul li:last-child {
+	text-align: left;
+}
+
+#static-list-area ul li span {
+	font-size: 12px;
+}
+
+h3 {
+	font-size: 20px;
+	font-weight: normal;
+	text-align: left;
+	line-height: 20px;
+	padding: 0 0 6px 2px;
+	border-bottom: 4px solid rgba(31,144,228,1);
+}
+
+.interviewee-data tr td {
+	text-align: left;
+	vertical-align: middle;
+	padding: 8px;
+}
+
+.interviewee-data tr:nth-child(even) {
+	background-color: rgba(244,244,244,1);
+}
+/* -----------------------------------------------------------------------------------------
+  LOG IN
+----------------------------------------------------------------------------------------- */
+#login {
+	margin-top: 72px;
+}
+
+#login div {
+	width: 45%;
+	height: auto;
+	margin: 0 auto;
+}
+
+#login div p  {
+	text-align: right;
+	margin-bottom: 32px;
+}
+
+#login div p label {
+	padding-right: 4px;
+}
+
+#login div p input {
+	text-align: left;
+	width: 300px;
+}
+
+#login .btn-large {
+	width: 24%;
+	margin: 0 auto;
+}

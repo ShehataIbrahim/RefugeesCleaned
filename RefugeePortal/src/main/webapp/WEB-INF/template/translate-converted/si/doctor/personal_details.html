@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>නම：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'පිරිමි','ගැහැණු'}}">
+		<ul>
+			<li><span>ලිංගික කාරණා：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>වයස：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'මූලික සෞඛ්ය පරීක්ෂාව','අභ්යන්තර වෛද්ය විද්යාව','කෝඩෝනය','ශ්වසන ඖෂධ','දියවැඩියාව'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>ප්රශ්නය අන්තර්ගතය</th>
+                <th>පිළිතුර</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>ඔබට අසාත්මිකතාවයක් තිබේද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>ඔබ දුම් පානය කරන්නේ?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>අසාමාන්ය ආහාරයක් තිබේද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>ඔබට සෛලීය රෝග ලක්ෂණ තිබේද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>සෛලීය රෝග ලක්ෂණ මොනවාද?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>රෝග ලක්ෂණ මොනවාද?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>ඔබ මෑතකදී උපදෙස් ලබා දී තිබේද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>ඔබ කවදා හෝ රෝහල්ගතවීම හෝ ශල්යකර්ම ඇති කර තිබේද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>රෝගය නම කුමක්ද?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>ඔබ දැනට මත්පැන් පානය කරනවාද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>දිනකට බොන්න දුම්වැටි කීයක් ද?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>ඔබ උදේ වරක් අවදි වන විට ඔබ බොහෝ විට කම්පනයට පත් වේද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>ඔබ නිතරම විහිළුවක්ද (සෙසෙයි, හියු හියු)?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>පසුගිය මාස 3 තුළ ඔබ කලබල කර ඇත්ද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>පසුගිය මාස තුන ඇතුළත දී හුස්ම හිර කිරීම නතර කළ හැකි බව ඔබේ පවුල විසින් ඔබට පවසා තිබේද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>ඔබ නිදා සිටින විට නිදා සිටිනවාද? නිදා සිටියදී නිදා සිටිනවාද? නැතහොත් අන්තිම මාස 3 තුළ ඔබ රැඳී සිටිය යුතුද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>පිපාසය ඇහෙන්න පුළුවන්ද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>රුධිරයේ සීනි අධික බව ඔබ පවසා ඇතිවාද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>ඔබේ පවුලට දියවැඩියාව තිබේද?</td>
+					<td th:text='${(d.answer == "1") ? "ඔව්" : "නැත"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">පණිවිඩයක් යවන්න</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("ඔබ ඉවත් වීමට අවශ්යද?")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("මම දැනුම් දුන්නා");
+}
+/*]]>*/
+</script>
+</html>

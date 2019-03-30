@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Migrants and Refugee Suport Portal</title>
+<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+<link href="/css/pc-style-basic.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="wrapper">
+	<header>
+		<div>
+			<h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
+		</div>
+	</header>
+
+	<section id="static-list-area">
+		<h2><span>နာမည်အပြည့်အစုံ：</span><th:block th:text="${nammin_name}">Mark Jhonson</th:block></h2>
+		<th:block th:with="gender=${new String[]{'အထီး','မိန်းမ'}}">
+		<ul>
+			<li><span>ကျား, မ：</span><th:block th:text="${gender[nammin_sex-1]}">男</th:block></li>
+			<li><span>အသက်အရွယ်：</span><th:block th:text="${nammin_age}">22</th:block></li>
+		</ul>
+		</th:block>
+
+
+		<th:block th:with="categories=${new String[]{'ကနဦးကျန်းမာရေးစစ်ဆေးမှုများ','internal Medicine','COPD','ဆေးဘက်ဆိုင်ရာ respiration','ဆီးချိုရောဂါ'}}">
+		<h3 th:text="${categories[category_id-1]}">呼吸器内科</h3>
+		</th:block>
+		<div class="list-area">
+        <table class="interviewee-data">
+            <colgroup>
+                <col width="68%" />
+                <col width="32%" />
+            </colgroup>
+            <tr>
+                <th>စုံစမ်းစစ်ဆေးရေးအကြောင်းအရာ</th>
+                <th>အဖွေ</th>
+            </tr>
+			<th:block th:each="d : ${details}"><th:block th:switch="${d.questionId}">
+				<tr th:case="0">
+					<td>သင်သည်မည်သည့်ဓာတ်မတည်ရှိပါသလား</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="1">
+					<td>သငျသညျစီးကရက်ဆေးလိပ်ပါသလား</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="2">
+					<td>သငျသညျအစာစားချင်စိတ်မဆိုမူမမှန်ရှိပါသလား</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="3">
+					<td>သငျသညျလက္ခဏာတွေရှိသလား</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="4">
+					<td>ပတ်လည်အချိန်ကနေပုဂ္ဂလဒိဋ္လက္ခဏာတွေလား?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="5">
+					<td>လက္ခဏာများကဘာတွေလဲ?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="6">
+					<td>သင်တစ်ဦးမကြာသေးခင်ကဆေးစစ်လက်ခံရရှိခဲ့သလား</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="7">
+					<td>သငျသညျအစဉျအမွဲယခုတိုင်အောင်တစ်ဦးဆေးရုံတင်ကုသရန်သို့မဟုတ်ခွဲစိတ်ကုသလက်ခံရရှိပြီလော</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="8">
+					<td>ရောဂါ၏အမည်ကဘာလဲ?</td>
+					<td th:text="${d.answer}">answer</td>
+				</tr>
+				<tr th:case="9">
+					<td>သငျသညျယခုသောက်သုံးနေကြသည်ဆိုဆေးပညာရှိပါသလား?</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="10">
+					<td>သငျသညျဘယ်နှစ်ယောက်ဤနေ့, ဆေးလိပ်သောက်သလဲ?</td>
+					<td th:text="${d.answer}">10</td>
+				</tr>
+				<tr th:case="11">
+					<td>သင်မကြာခဏလိပ်ကိုချက်ချင်းနံနက်ယံ၌ထနိုးပါဝင်ပတ်သက်နေကြသည်သလား?</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="12">
+					<td>အသက်ရှူကြပ်သငျသညျ (မြည်, အသက်ရှူကြပ်) ကောင်းသောရှိသည် Do ပါသလဲ</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="13">
+					<td>သင်သုံးလအတွင်းဆိုးဆိုးရွားရွားဟောက်တတ်တဲ့ခဲ့သလား</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="14">
+					<td>သုံးလအတွက်, အဲဒီမှာကမိသားစုထံမှကပြောသည်ဘာကြီးနှင့်တခါတရံတွင်အိပ်နေစဉ်အသက်ရှူရပ်တန့်ခြင်းရှိမရှိ?</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="15">
+					<td>ယင်းသုံးလမှာအချိန်ဇုန်ကအိပ်ဖွယ်ရှိခိုင်မာတဲ့အိပ်ပျော် dozing သို့မဟုတ်ဖြစ်လာခဲ့ဖြစ်နိုင်သောခဲ့သည်ဖြစ်စေ, တစ်ရက်သို့မဟုတ်ရာအရပျနေစဉ်အတွင်းဖြစ်သင့်သလဲ</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="16">
+					<td>လည်ချောင်းရေငတ်ဖို့လွယ်ကူသည်ဖြစ်သနည်း</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="17">
+					<td>သငျသညျအသှေးကိုသကြားအမြင့်ဆုံးဖြစ်ဟုပြီလော</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+				<tr th:case="18">
+					<td>သငျသညျမိသားစုမှာဆီးချိုရောဂါပိုမိုရှိပါသလား</td>
+					<td th:text='${(d.answer == "1") ? "ဟုတ်ကဲ့" : "အဘယ်သူမျှမ"}'>はい</td>
+				</tr>
+			</th:block></th:block>
+        </table>
+    </div>
+    <p class="btn-large" style="width:30%; margin:32px auto 0"><a href="javascript:postAPI()" onclick="">သတင်းစကားကိုပို့ပါ</a></p>
+</section>
+</div>
+<!-- ログアウト -->
+<form action="/doctor/logout" method="POST" name="form_logout">
+	<input type="hidden" th:name="${csrfTokenName}" th:value="${csrfToken2}" />
+</form>
+</body>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+    function confirmLogout(){
+        if(!confirm("သငျသညျနေ log out လုပ်ဖို့လိုတာသေချာ။")){
+            return false;
+        }else{
+            form_logout.submit();
+        }
+    }
+</script>
+<script th:inline="javascript">
+/*<![CDATA[>*/
+var postData = {
+    n_id: /*[[${namminID}]]*/ "1"
+}
+var csrfTokenName = /*[[${csrfTokenName}]]*/ "token";
+postData[csrfTokenName] = /*[[${csrfToken}]]*/ "dummy";
+function postAPI(){
+    $.ajax({
+      type: 'POST',
+      url: "/doctor/api/requestNotification",
+      data: postData
+    });
+    alert("ငါအကြောင်းကြားစာကိုမေးမြန်း");
+}
+/*]]>*/
+</script>
+</html>
