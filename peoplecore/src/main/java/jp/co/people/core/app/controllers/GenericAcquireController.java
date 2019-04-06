@@ -20,10 +20,12 @@ package jp.co.people.core.app.controllers;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import jp.co.people.core.app.exceptions.NotRegisteredAnchorResourceException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +97,22 @@ public class GenericAcquireController extends BaseController {
 
 			// 汎用データ取得
 			JSONObject bindParameter = requestParameters.getJSONObject(SystemConstants.REQUEST_KEY_BIND_PARAMETAR);
+			if(sqlName.startsWith(GenericAcquisitionConstants.GET_HEALTH_CATEGORY))
+			{
+				Object responseKey = genericAcquisitionService.executeQuery("getResourceKey", bindParameter);
+				if(responseKey==null)
+				{
+					throw new NotRegisteredAnchorResourceException(SystemConstants.MID_E10001,
+							this.messages.get(SystemConstants.MID_E10001, bindParameter.getString(GenericAcquisitionConstants.HEALTH_RESOURCE_KEY)));
+				}
+				if(responseKey instanceof List)
+				{
+					String resourceKey=((Map)((List)responseKey).get(0)).get(GenericAcquisitionConstants.HEALTH_RESOURCE_KEY).toString();
+					System.out.println(resourceKey);
+					bindParameter.put(GenericAcquisitionConstants.HEALTH_RESOURCE_KEY,resourceKey);
+				}
+			}
+
 			Object responseJson = genericAcquisitionService.executeQuery(sqlName, bindParameter);
 			
 			if(responseJson != null){
@@ -176,7 +194,6 @@ public class GenericAcquireController extends BaseController {
 	 * 
 	 * @param sqlName
 	 *            SQL名
-	 * @param bindParameters
 	 *            リクエストパラメータ
 	 * @throws InputParametersException
 	 * @throws NotExistsApiException
@@ -310,6 +327,14 @@ public class GenericAcquireController extends BaseController {
 						GenericAcquisitionConstants.PERSONAL_INFO_FULL_NAME_TITLE);
 				break;
 			}
+			case GenericAcquisitionConstants.GET_HEALTH_INTERVIEW_SQL_NAME:{
+				this.validateBindParameterKeyForString(
+						requestParameters,
+						GenericAcquisitionConstants.HEALTH_RESOURCE_KEY,
+						GenericAcquisitionConstants.HEALTH_RESOURCE_KEY_TITLE);
+				break;
+			}
+
 			default: {
 				// 定義されていないSQL名が指定されている
 				throw new NotExistsApiException(SystemConstants.MID_E00007, messages.get(SystemConstants.MID_E00007));

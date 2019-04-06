@@ -15,7 +15,8 @@ logging:
 consolidate:
   services:
     api: /api/v1/consolidate
-    key: /api/v1/getpersonalresourcekey
+    resourcekey: /api/v1/getpersonalresourcekey
+    interview: /api/v1/healthInterview
   host: http://localhost:8080/peoplecore
   authKey: 2ea7dc1a-9700-4d74-8740-0052686712ee
 spring:

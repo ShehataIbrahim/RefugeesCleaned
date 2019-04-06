@@ -7,6 +7,7 @@ import com.refugees.portal.db.health.model.AllowedAnswer;
 import com.refugees.portal.db.health.model.InterviewDisplay;
 import com.refugees.portal.db.health.model.QuestionDependency;
 import com.refugees.portal.services.ConsolidateService;
+import com.refugees.portal.services.model.InterviewAnswerBaseData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ import com.refugees.portal.demo.Translator;
 public class ChatbotCallBack {
     @Autowired
     List<InterviewDisplay> questions;
+    @Autowired
+    ConsolidateService service;
     @Value("${fb.pageAccessToken}")
     private String pageAccessToken_;
     private final MessengerReceiveClient receiveClient;
@@ -52,27 +55,29 @@ public class ChatbotCallBack {
     @Autowired
     ConsolidateService consolidateService;
     final static HashMap<String, QuestionDependency> questionDependencies;
+
     static {
-        questionDependencies=new HashMap<>();
-        QuestionDependency d=null;
-        d=new QuestionDependency();
+        questionDependencies = new HashMap<>();
+        QuestionDependency d = null;
+        d = new QuestionDependency();
         d.setInterviewId("2_1_1");
-        AllowedAnswer answer=new AllowedAnswer();
+        AllowedAnswer answer = new AllowedAnswer();
         answer.setAnswerId(1);
         answer.setAnswer("YES");
         d.setValidAnswer(answer);
-        questionDependencies.put("2_1_2",d);
-        questionDependencies.put("2_1_3",d);
-        d=new QuestionDependency();
+        questionDependencies.put("2_1_2", d);
+        questionDependencies.put("2_1_3", d);
+        d = new QuestionDependency();
         d.setInterviewId("2_1_4");
         d.setValidAnswer(answer);
-        questionDependencies.put("2_1_5",d);
+        questionDependencies.put("2_1_5", d);
 
-        d=new QuestionDependency();
+        d = new QuestionDependency();
         d.setInterviewId("1_1_2");
         d.setValidAnswer(answer);
-        questionDependencies.put("3_1_1",d);
+        questionDependencies.put("3_1_1", d);
     }
+
     private static final Logger logger = LoggerFactory.getLogger(ChatbotCallBack.class);
 
     @Autowired
@@ -196,14 +201,14 @@ public class ChatbotCallBack {
                 user.setScanningDate(timestamp);
                 RefugeeUser refugeeUser = refugeeService.findRefugeeByUserName(user.getUserName());
                 System.out.println(refugeeUser);
-                Screening screeningData ;
+              /*  Screening screeningData ;
                 try {
                     screeningData = refugeeService.getUserScreeningData(refugeeUser.getId());
 
                 } catch (ScreenedBeforeException e1) {
                     sendTextMessage(senderId, Translator.translateFromEnglish(refugeeUser.getTranslateLangCode(), "Thanks for passing by, we will communicate you once done processing"));
                     return;
-                }
+                }*/
                 String fbInfo = refugeeUser.getFacebookInfo();
                 int currentQuestionId = 0;
                 try {
@@ -220,29 +225,31 @@ public class ChatbotCallBack {
                 }
                 System.out.println("Current under processing question: " + currentQuestionId);
                 int nextQuestionId = (currentQuestionId < (questions.size() - 1)) ? (currentQuestionId + 1) : 0; //refugeeService.findNextQuestion(refugeeUser.getFacebookInfo());
-                // TODO: 3/30/2019 to add dependencies handling
+
+
                 System.out.println("Next Question to go is :" + nextQuestionId);
-                String userResourceKey ;
                 try {
-                    userResourceKey = consolidateService.getResourceKey(String.valueOf(user.getUserId()));
-                    if (userResourceKey == null || userResourceKey.trim().isEmpty()) {
-                        sendTextMessage(senderId, Translator.translateFromEnglish(refugeeUser.getTranslateLangCode(), "Sorry it seems there is a technical issue in your registeration process, please return to help desk to solve it code 'RES_KEY_0001' "));
-                        return;
-                    }
+                    service.consolidateInterviewAnswer(refugeeUser.getId().toString(), questions.get(currentQuestionId), messageText);
                 } catch (IOException e) {
                     sendTextMessage(senderId, Translator.translateFromEnglish(refugeeUser.getTranslateLangCode(), "Sorry it seems there is a technical issue in processing your answer, please return to help desk to solve it code 'RES_KEY_0002' "));
                     return;
                 }
+                // dependencies handling
+                if(nextQuestionId != 0&& questionDependencies.containsKey(questions.get(nextQuestionId).objectId()))
+                {
+                    QuestionDependency dep = questionDependencies.get(questions.get(nextQuestionId).objectId());
+                    try {
+                        Map<String, InterviewAnswerBaseData> mp = service.getPatientAnswers(refugeeUser.getId().toString());
+                        InterviewAnswerBaseData ans = mp.get(dep.getInterviewId());
+                        if(!String.valueOf(dep.getValidAnswer().getAnswerId()).equalsIgnoreCase(ans.getInterview_answer()))
+                            nextQuestionId++;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //end of dependency handling
                 if (nextQuestionId == 0) {
                     System.out.println("just finalizing our chat");
-                    //  refugeeService.addScreeningAnswer(currentQuestionId, screeningData.getId(), messageText);
-                    //  screeningData.setStatus("INITIAL");
-                    // refugeeService.updateScreening(screeningData);
-                    // screeningData.setCompletinggDate(new java.util.Date());
-                    // refugeeService.updateScreening(screeningData);
-
-                    // TODO: 3/30/2019 now to add the user response to be consolidated
-
                     //update user submittion status
                     refugeeUser.setFacebookInfo("INITIAL");
                     refugeeService.updateRefugeeUser(refugeeUser);
@@ -252,7 +259,6 @@ public class ChatbotCallBack {
                 }
                 System.out.println("Going through questioning process");
 
-                // TODO: 3/30/2019 now to add the user response to be consolidated
 
                 //refugeeService.addScreeningAnswer(currentQuestionId, screeningData.getId(), messageText);
                 System.out.println("added pervious question answer");
@@ -262,8 +268,8 @@ public class ChatbotCallBack {
                 refugeeService.updateFacebook(user);
                 refugeeService.updateRefugeeUser(refugeeUser);
                 System.out.println("Reflected updated scanning date");
-                InterviewDisplay currentQuestion=questions.get(nextQuestionId);
-                String message = Translator.translateFromEnglish(refugeeUser.getTranslateLangCode(),currentQuestion.getInterviewItem());
+                InterviewDisplay currentQuestion = questions.get(nextQuestionId);
+                String message = Translator.translateFromEnglish(refugeeUser.getTranslateLangCode(), currentQuestion.getInterviewItem());
                 if (!currentQuestion.isMultiSelection())
                     sendTextMessage(senderId, message);
                 else
@@ -271,7 +277,7 @@ public class ChatbotCallBack {
                         currentQuestion.getAllowedAnswers().stream().forEach(q -> {
                             q.setTranslatedAnswer(Translator.translateFromEnglish(refugeeUser.getTranslateLangCode(), q.getAnswer()));
                         });
-                        sendQuickReply(senderId, message,currentQuestion.getAllowedAnswers());
+                        sendQuickReply(senderId, message, currentQuestion.getAllowedAnswers());
                     } catch (Exception e) {
                         handleSendException(e);
                     }

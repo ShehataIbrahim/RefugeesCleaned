@@ -42,7 +42,9 @@ public class GenericAcquisitionConstants {
 	public static final String GET_PERSONAL_INFO_05_SQL_NAME = "getlatestpersonalinfo05";
 	/** 個人情報取得6のSQL名 */
 	public static final String GET_PERSONAL_INFO_06_SQL_NAME = "getlatestpersonalinfo06";
-	
+
+	public static final String GET_HEALTH_INTERVIEW_SQL_NAME="healthInterview";
+	public static final String GET_HEALTH_CATEGORY="health";
 	/** 個人情報の患者IDのバインド変数名 */
 	public final static String PERSONAL_INFO_PATIENT_ID = "patient_id";
 	/** 個人情報の生年月日のバインド変数名 */
@@ -72,7 +74,9 @@ public class GenericAcquisitionConstants {
 	public final static String PERSONAL_INFO_INSURED_MARK_TITLE = "被保険者記号";
 	/** 個人情報の被保険者番号 */
 	public final static String PERSONAL_INFO_INSURED_NUMBER_TITLE = "被保険者番号";
-	
+	public final static String HEALTH_RESOURCE_KEY="resource_key";
+	public final static String HEALTH_RESOURCE_KEY_TITLE="resource key";
+
 	/** メッセージID：E20010 */
 	public static final String MID_E20010 = "E20010";
 }

@@ -1,16 +1,10 @@
 package com.refugees.portal.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.google.api.client.json.Json;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.refugees.portal.db.health.model.InterviewDisplay;
 import com.refugees.portal.services.model.*;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -18,10 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ConsolidateService {
@@ -29,8 +21,10 @@ public class ConsolidateService {
     private String CONSOLIDATE_HOST;
     @Value("${consolidate.services.api}")
     private String CONSOLIDATE_API;
-    @Value("${consolidate.services.key}")
-    private String CONSOLIDATE_KEY;
+    @Value("${consolidate.services.resourcekey}")
+    private String CONSOLIDATE_Resource_KEY;
+    @Value("${consolidate.services.interview}")
+    private String INTERVIEW_ANSWERS_API;
     @Value("${consolidate.authKey}")
     private String CONSOLIDATE_AUTH_KEY;
 
@@ -54,9 +48,34 @@ public class ConsolidateService {
     public String getResourceKey(String patientId) throws IOException
     {
         ResourceKeyRequest request=new ResourceKeyRequest(patientId);
-        String responseText=processRequest(request,CONSOLIDATE_KEY);
+        String responseText=processRequest(request, CONSOLIDATE_Resource_KEY);
         ResourceKeyResponse response=new Gson().fromJson(responseText,ResourceKeyResponse.class);
         return response.getData().get(0).getResource_key();
+    }
+    public void consolidateInterviewAnswer(String patientId, InterviewDisplay question,String answerString) throws IOException
+    {
+        ResourceKeyRequest request=new ResourceKeyRequest(patientId);
+        String responseText=processRequest(request, CONSOLIDATE_Resource_KEY);
+        ResourceKeyResponse response=new Gson().fromJson(responseText,ResourceKeyResponse.class);
+        String resourceKey=response.getData().get(0).getResource_key();
+        if(resourceKey==null)
+            throw new IOException("Invalid Patient resource key");
+        ConsolidateInterviewRequest consolidateInterviewRequest=new ConsolidateInterviewRequest();
+        consolidateInterviewRequest.setFrom_type("3001#0000#0");
+        consolidateInterviewRequest.setTo_type("0200#0100#1");
+        InterviewConsolidationData item = new InterviewConsolidationData(resourceKey);
+        item.setMethod("insert");
+        InterviewAnswerData answer = new InterviewAnswerData();
+        answer.setIfaDate(new Date());
+        answer.setInterview_answer(answerString);
+        answer.setInterview_answer_type(question.getAnswerType());
+        answer.setInterview_category_id(String.valueOf(question.getCategoryId()));
+        answer.setInterview_id(String.valueOf(question.getInterviewId()));
+        answer.setInterview_version(String.valueOf(question.getCategoryVersion()));
+        item.setBind_parameters(answer);
+        consolidateInterviewRequest.getData().add(item);
+        processRequest(consolidateInterviewRequest,CONSOLIDATE_API);
+
     }
     private String processRequest(BaseRequest request,String api) throws IOException
     {
@@ -74,8 +93,16 @@ public class ConsolidateService {
         os.flush();
         int responseCode = conn.getResponseCode();
         if (responseCode != HttpURLConnection.HTTP_CREATED && responseCode != HttpURLConnection.HTTP_OK) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    (conn.getInputStream())));
+            String output;
+            StringBuffer response=new StringBuffer();
+
+            while ((output = br.readLine()) != null) {
+                response.append(output);
+            }
             throw new RuntimeException("Failed : HTTP error code : "
-                    + responseCode);
+                    + responseCode+" due to "+response);
         }
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 (conn.getInputStream())));
@@ -87,5 +114,20 @@ public class ConsolidateService {
         }
         return response.toString();
 
+    }
+
+    public Map<String,InterviewAnswerBaseData> getPatientAnswers(String patientId) throws IOException{
+        final Map<String,InterviewAnswerBaseData> data=new HashMap<>();
+        String resource_key=getResourceKey(patientId);
+        PatientAnswersRequest resourceKeyRequest=new PatientAnswersRequest(resource_key);
+        String responseText= processRequest(resourceKeyRequest, INTERVIEW_ANSWERS_API);
+        PatientAnswersResponse response=new Gson().fromJson(responseText, PatientAnswersResponse.class);
+        if(response.getData()!=null && !response.getData().isEmpty())
+        {
+            response.getData().stream().forEach(answer->{
+                data.put(answer.getInterview_category_id()+"_"+answer.getInterview_version()+"_"+answer.getInterview_id(),answer);
+            });
+        }
+        return data;
     }
 }
