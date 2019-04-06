@@ -1,22 +1,18 @@
 package com.refugees.servlets.doctor;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.refugees.db.model.RefugeeUser;
+import com.refugees.db.service.RefugeeUserService;
+import net.hitachifbbot.filter.CSRFFilter;
+import net.hitachifbbot.servlet.AppServlet;
+import net.hitachifbbot.utils.DBUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.refugees.db.model.RefugeeUser;
-import com.refugees.db.service.RefugeeUserService;
-
-import net.hitachifbbot.filter.CSRFFilter;
-import net.hitachifbbot.servlet.AppServlet;
-import net.hitachifbbot.utils.DBUtils;
-import net.hitachifbbot.utils.Template;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScreeningDetailServlet extends AppServlet {
 	@Override

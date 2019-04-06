@@ -1,11 +1,10 @@
 package com.refugees.db.service;
 
+import com.refugees.db.config.HibernateConfigurator;
+import net.hitachifbbot.utils.DBUtils;
+
 import java.sql.Connection;
 import java.sql.Statement;
-
-import com.refugees.db.config.HibernateConfigurator;
-
-import net.hitachifbbot.utils.DBUtils;
 
 public class ScreeningService {
 	public static boolean checkUserHasPendingScreening(int userId) {

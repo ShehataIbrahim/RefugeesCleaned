@@ -1,6 +1,5 @@
 package net.hitachifbbot.servlet;
 
-import net.hitachifbbot.Consts;
 import net.hitachifbbot.model.PasswordHash;
 import net.hitachifbbot.utils.DBUtils;
 import org.apache.commons.codec.DecoderException;

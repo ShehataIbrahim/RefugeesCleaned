@@ -1,16 +1,15 @@
 package com.refugees.common;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import net.hitachifbbot.Consts;
+import net.hitachifbbot.model.NamminUserData;
+import net.hitachifbbot.session.AppSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import net.hitachifbbot.Consts;
-import net.hitachifbbot.model.NamminUserData;
-import net.hitachifbbot.session.AppSession;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Validator {

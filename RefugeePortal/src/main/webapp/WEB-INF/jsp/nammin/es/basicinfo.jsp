@@ -1,17 +1,16 @@
 <%@page pageEncoding="UTF-8" contentType="text/html" isELIgnored="false"%>
-<%@ page import="net.hitachifbbot.filter.CSRFFilter" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="format-detection" content="telephone=no">
-<meta name="robots" content="noindex, nofollow">
-<title>Migrants and Refugee Suport Portal</title>
-<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet">
-<link href="/css/mobile-style-basic.css" rel="stylesheet">
-<script>
-var datas = <%= request.getAttribute("answers") %>;
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Migrants and Refugee Suport Portal</title>
+    <link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet">
+    <link href="/css/mobile-style-basic.css" rel="stylesheet">
+    <script>
+        var datas = <%= request.getAttribute("answers") %>;
 
 var controlVal = {
   name : datas["1"],

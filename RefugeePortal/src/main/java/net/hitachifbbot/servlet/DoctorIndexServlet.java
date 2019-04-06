@@ -1,17 +1,13 @@
 package net.hitachifbbot.servlet;
 
 import net.hitachifbbot.filter.CSRFFilter;
-import net.hitachifbbot.utils.DBUtils;
 import net.hitachifbbot.utils.Template;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class DoctorIndexServlet extends AppServlet {
 

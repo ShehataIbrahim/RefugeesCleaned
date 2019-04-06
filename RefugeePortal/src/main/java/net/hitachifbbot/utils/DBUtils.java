@@ -1,20 +1,9 @@
 package net.hitachifbbot.utils;
 
-import java.io.InputStream;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Properties;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp2.BasicDataSourceFactory;
-
 import com.refugees.db.config.HibernateConfigurator;
+
+import javax.sql.DataSource;
+import java.sql.*;
 
 /**
  * DBに関する記述を簡潔にするためのUtil

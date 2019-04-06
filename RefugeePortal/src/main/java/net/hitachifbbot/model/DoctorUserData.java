@@ -1,6 +1,5 @@
 package net.hitachifbbot.model;
 
-import net.hitachifbbot.DB;
 import net.hitachifbbot.session.AppSession.UserData;
 
 public class DoctorUserData extends UserData{

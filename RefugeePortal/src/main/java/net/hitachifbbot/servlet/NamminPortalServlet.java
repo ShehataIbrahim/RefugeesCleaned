@@ -1,20 +1,14 @@
 package net.hitachifbbot.servlet;
 
-import net.hitachifbbot.Consts;
+import com.refugees.db.model.RefugeeUser;
 import net.hitachifbbot.DB;
 import net.hitachifbbot.model.NamminUserData;
-import net.hitachifbbot.model.PasswordHash;
 import net.hitachifbbot.session.AppSession;
-import org.apache.commons.codec.DecoderException;
-
-import com.refugees.db.model.RefugeeUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 public class NamminPortalServlet extends AppServlet {

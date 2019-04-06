@@ -5,9 +5,7 @@ import net.hitachifbbot.DB;
 import net.hitachifbbot.NamminUser;
 import net.hitachifbbot.model.NamminUserData;
 import net.hitachifbbot.model.PasswordHash;
-import net.hitachifbbot.node.HubotCaller;
 import net.hitachifbbot.session.AppSession;
-import net.hitachifbbot.utils.DBUtils;
 import org.apache.commons.codec.DecoderException;
 
 import javax.servlet.ServletException;

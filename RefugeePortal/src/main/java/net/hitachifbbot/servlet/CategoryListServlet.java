@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -26,9 +25,9 @@ public class CategoryListServlet extends AppServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         try{
-            List<Category> result = DBUtils.preparedStatement("select " +
-                            "scat.category_id, scat.category_name " +
-                            "from screening_category as scat ;",
+
+            List<Category> result = DBUtils.preparedStatementHealth("SELECT interview_category_id category_id,\n" +
+                            "interview_category_name category_name from mst_interview_category;",
                     ps -> {
                     },
                     r -> {
@@ -46,7 +45,7 @@ public class CategoryListServlet extends AppServlet {
                 put("resultList", result);
             }};
             Template.responseTranslated("doctor/screening_list",map,req,resp);
-        }catch (SQLException e) {
+        }catch (Exception e) {
             throw new IOException(e);
         }
     }

@@ -1,13 +1,11 @@
 package net.hitachifbbot.session;
 
-import net.hitachifbbot.DB;
 import net.hitachifbbot.model.DoctorUserData;
 import net.hitachifbbot.model.NamminUserData;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class AppSession {
 	public static final String SESSION_KEY = "APP_SESSION";

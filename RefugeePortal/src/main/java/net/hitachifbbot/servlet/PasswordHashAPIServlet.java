@@ -1,6 +1,5 @@
 package net.hitachifbbot.servlet;
 
-import net.arnx.jsonic.JSON;
 import net.hitachifbbot.model.PasswordHash;
 import org.apache.commons.codec.DecoderException;
 

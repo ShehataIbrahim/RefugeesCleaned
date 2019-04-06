@@ -1,23 +1,43 @@
 package com.refugees.db.service;
 
+import com.refugees.consolidate.model.AllowedAnswer;
+import com.refugees.db.model.AnswerTypesEnum;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ScreeningQuestion {
-	private final static List<Integer> TEXT_QUESTIONS=new ArrayList<>();
-	private final static List<Integer> NUMERIC_QUESTIONS=new ArrayList<>();
-	static {
-		TEXT_QUESTIONS.add(5);
-		TEXT_QUESTIONS.add(6);
-		TEXT_QUESTIONS.add(9);
-		TEXT_QUESTIONS.add(11);
-	}
 	private int questionId;
 	private int categoryId;
 	private String questionTextKey;
-	
+	private String qId;
+	private AnswerTypesEnum type;
+	private List<AllowedAnswer> allowedAnswers;
+	public String getqId() {
+		return qId;
+	}
+
+	public void setqId(String qId) {
+		this.qId = qId;
+	}
+
+	public AnswerTypesEnum getType() {
+		return type;
+	}
+
+	public void setType(AnswerTypesEnum type) {
+		this.type = type;
+	}
+
+	public List<AllowedAnswer> getAllowedAnswers() {
+		return allowedAnswers;
+	}
+
+	public void setAllowedAnswers(List<AllowedAnswer> allowedAnswers) {
+		this.allowedAnswers = allowedAnswers;
+	}
+
 	public ScreeningQuestion() {
 		super();
 	}
@@ -46,14 +66,10 @@ public class ScreeningQuestion {
 	}
 	public boolean isText()
 	{
-		return TEXT_QUESTIONS.contains(questionId);
-	}
-	public boolean isNumeric()
-	{
-		return NUMERIC_QUESTIONS.contains(questionId);
+		return type==AnswerTypesEnum.FREE;
 	}
 	public boolean isYesNo()
 	{
-		return !(isNumeric()||isText());
+		return type==AnswerTypesEnum.LIST;
 	}
 }

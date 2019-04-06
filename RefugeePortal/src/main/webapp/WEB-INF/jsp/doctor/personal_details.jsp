@@ -2,8 +2,8 @@
 <%@page import="com.refugees.common.Validator"%>
 <%@page import="com.refugees.servlets.doctor.ScreeningDetailServlet.ScreeningDetail"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.ResourceBundle"%>
 <%@page import="java.util.Locale"%>
+<%@page import="java.util.ResourceBundle"%>
 <%@page pageEncoding="UTF-8" contentType="text/html" isELIgnored="false"%>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>

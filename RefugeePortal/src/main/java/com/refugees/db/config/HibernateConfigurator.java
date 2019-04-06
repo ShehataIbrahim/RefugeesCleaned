@@ -1,16 +1,12 @@
 package com.refugees.db.config;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.service.ServiceRegistry;
 
-import net.hitachifbbot.utils.DBUtils;
+import java.sql.Connection;
 
 public class HibernateConfigurator {
 	private static final SessionFactory sessionFactoryPortalObj;

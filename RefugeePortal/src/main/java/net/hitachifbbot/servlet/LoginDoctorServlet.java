@@ -6,7 +6,6 @@ import net.hitachifbbot.model.DoctorUser;
 import net.hitachifbbot.model.DoctorUserData;
 import net.hitachifbbot.model.PasswordHash;
 import net.hitachifbbot.session.AppSession;
-import net.hitachifbbot.utils.DBUtils;
 import org.apache.commons.codec.DecoderException;
 
 import javax.servlet.ServletException;

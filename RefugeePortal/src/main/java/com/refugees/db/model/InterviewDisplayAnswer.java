@@ -1,5 +1,8 @@
 package com.refugees.db.model;
 
+import com.refugees.consolidate.model.AllowedAnswer;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class InterviewDisplayAnswer {
@@ -9,15 +12,20 @@ public class InterviewDisplayAnswer {
 	private String interviewItem;
 	private String answerType;
 	private Integer categoryId;
-	private List<String> allowedAnswers;
+	private List<AllowedAnswer> allowedAnswers;
 	private AnswerTypesEnum type;
 	public AnswerTypesEnum getType() {
 		return type;
 	}
-	public List<String> getAllowedAnswers() {
+
+	public InterviewDisplayAnswer() {
+		allowedAnswers=new ArrayList<>();
+	}
+
+	public List<AllowedAnswer> getAllowedAnswers() {
 		return allowedAnswers;
 	}
-	public void setAllowedAnswers(List<String> allowedAnswers) {
+	public void setAllowedAnswers(List<AllowedAnswer> allowedAnswers) {
 		this.allowedAnswers = allowedAnswers;
 	}
 	public Integer getCategoryId() {
@@ -74,6 +82,10 @@ public class InterviewDisplayAnswer {
 	public int hashCode() {
 		
 		return (String.valueOf(categoryId)+"_"+String.valueOf(categoryVersion)+"_"+String.valueOf(interviewId)).hashCode();
+	}
+	public String objectId()
+	{
+		return String.valueOf(categoryId)+"_"+String.valueOf(categoryVersion)+"_"+String.valueOf(interviewId);
 	}
 	
 }

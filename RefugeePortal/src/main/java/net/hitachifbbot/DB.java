@@ -6,7 +6,6 @@ import net.hitachifbbot.utils.DBUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DB {
 

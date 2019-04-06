@@ -3,7 +3,6 @@ package net.hitachifbbot.servlet;
 import net.arnx.jsonic.JSON;
 import net.hitachifbbot.DB;
 import net.hitachifbbot.session.AppSession;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

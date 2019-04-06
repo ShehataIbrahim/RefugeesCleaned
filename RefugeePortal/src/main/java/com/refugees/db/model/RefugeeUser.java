@@ -1,10 +1,9 @@
 package com.refugees.db.model;
 
-import java.util.Date;
-
-import net.hitachifbbot.DB;
 import net.hitachifbbot.NamminUser;
 import net.hitachifbbot.model.NamminUserData;
+
+import java.util.Date;
 
 public class RefugeeUser extends NamminUserData {
 	public NamminUser dbUserData;

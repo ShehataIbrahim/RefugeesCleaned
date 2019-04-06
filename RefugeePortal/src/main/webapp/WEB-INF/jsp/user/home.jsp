@@ -1,11 +1,10 @@
+<%@page import="com.refugees.db.model.Category"%>
 <%@page import="com.refugees.db.service.ScreeningQuestion"%>
 <%@page import="java.util.List"%>
-<%@page import="com.refugees.db.model.Category"%>
+<%@page import="java.util.Locale"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.ResourceBundle"%>
-<%@page import="java.util.Locale"%>
 <%@page pageEncoding="UTF-8" contentType="text/html" isELIgnored="false"%>
-<%@ page import="net.hitachifbbot.filter.CSRFFilter"%>
 <!DOCTYPE html>
 <html>
 <!-- Bad Code to be enhanced -->
@@ -45,19 +44,19 @@
 						.getAttribute("categories");
 				for (Category c : list.keySet()) {
 			%>
-			<h2><%=msgBundle.getString(c.getCategoryName())%></h2>
+			<h2><%=c.getCategoryName()%></h2>
 			<%
 				for (ScreeningQuestion q : list.get(c)) {
 						if (q.isYesNo()) {
 			%>
 			<div class="input-radio">
-				<p id="Question<%=q.getQuestionId()%>"><%=msgBundle.getString(q.getQuestionTextKey())%></p>
+				<p id="Question<%=q.getqId()%>"><%=q.getQuestionTextKey()%></p>
 				<ul class="regulation-switch adjustment-bottom-margin flex-between">
-					<li><input type="radio" name="Q<%=q.getQuestionId()%>"
-						value="" id="Q<%=q.getQuestionId()%>_check1"><label
+					<li><input type="radio" name="Q<%=q.getqId()%>"
+						value="" id="Q<%=q.getqId()%>_check1"><label
 						for="yes"><%=msgBundle.getString("common.yes")%></label></li>
-					<li><input type="radio" name="Q<%=q.getQuestionId()%>"
-						value="" id="Q<%=q.getQuestionId()%>_check2" checked><label
+					<li><input type="radio" name="Q<%=q.getqId()%>"
+						value="" id="Q<%=q.getqId()%>_check2" checked><label
 						for="no"><%=msgBundle.getString("common.no")%></label></li>
 				</ul>
 			</div>
@@ -65,21 +64,14 @@
 				} else if (q.isText()) {
 			%>
 			<p class="input-vertical adjustment-bottom-margin">
-				<label id="Question<%=q.getQuestionId()%>" ><%=msgBundle.getString(q.getQuestionTextKey())%></label>
-				<textarea rows="1" cols="" id="Q<%=q.getQuestionId()%>"></textarea>
-			</p>
-			<%
-				} else if (q.isNumeric()) {
-			%>
-			<p class="input-vertical adjustment-bottom-margin">
-				<label><%=msgBundle.getString(q.getQuestionTextKey())%></label><input
-					type="number" pattern="\d*" id="Q<%=q.getQuestionId()%>">
+				<label id="Question<%=q.getqId()%>" ><%=q.getQuestionTextKey()%></label>
+				<textarea rows="1" cols="" id="Q<%=q.getqId()%>"></textarea>
 			</p>
 			<%
 				}
 			%>
 			<script type="text/javascript">
-				questionKeys.push("<%=q.getQuestionId()%>");
+				questionKeys.push("<%=q.getqId()%>");
 			</script>
 			<%
 				}
@@ -142,7 +134,7 @@ Object.size = function(obj) {
 			var qKey = "Q" + questionKeys[i];
 			var value = answers[questionKeys[i]];
 			if ($('#' + qKey + '_check1').length > 0) {
-				if (value == 1)
+				if (value == 'YES')
 					$('#' + qKey + '_check1')[0].checked = true;
 				else
 					$('#' + qKey + '_check2')[0].checked = true;

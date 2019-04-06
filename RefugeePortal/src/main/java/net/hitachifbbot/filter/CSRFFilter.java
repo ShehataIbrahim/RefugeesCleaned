@@ -1,6 +1,5 @@
 package net.hitachifbbot.filter;
 
-import net.hitachifbbot.Consts;
 import net.hitachifbbot.session.AppSession;
 
 import javax.servlet.FilterConfig;

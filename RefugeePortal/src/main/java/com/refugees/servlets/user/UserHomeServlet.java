@@ -1,27 +1,24 @@
 package com.refugees.servlets.user;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.refugees.common.Validator;
+import com.refugees.db.model.AnswerTypesEnum;
 import com.refugees.db.model.RefugeeUser;
 import com.refugees.db.service.CategoryService;
 import com.refugees.db.service.RefugeeUserService;
-
+import com.refugees.consolidate.ConsolidationService;
+import com.refugees.consolidate.model.InterviewAnswerBaseData;
 import net.arnx.jsonic.JSON;
 import net.hitachifbbot.DB;
 import net.hitachifbbot.model.NamminUserData;
 import net.hitachifbbot.servlet.AppServlet;
 import net.hitachifbbot.session.AppSession;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * Servlet implementation class UserLogin
@@ -43,7 +40,7 @@ public class UserHomeServlet extends AppServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			request.setAttribute("categories", CategoryService.getCategoryQuestions());
+
 			RefugeeUser user = (RefugeeUser) request.getSession().getAttribute("userData");
 			if(user==null)
 			{
@@ -53,10 +50,20 @@ public class UserHomeServlet extends AppServlet {
 				else
 					user=RefugeeUser.build(u);
 			}
-			ArrayList<DB.NamminAnswer> answer = RefugeeUserService.getUserAnswers(user.getUserId());
+			//eliminating old way of getting categories/questions/answers
+			Map<String, InterviewAnswerBaseData> patientAnswers = ConsolidationService.getPatientAnswers(user.getUserId().toString());
+			final Set<String> categorries=new HashSet<>();
+			patientAnswers.values().stream().forEach(baseData->{
+				categorries.add(baseData.getInterview_category_id());
+			});
+			request.setAttribute("categories", CategoryService.getCategoryQuestions(CategoryService.getHealtnCategories(String.join(",",categorries)),patientAnswers.values()));
+
 			HashMap<String, String> answers = new HashMap<>();
-			for (DB.NamminAnswer a : answer) {
-				answers.put("" + a.namminQID, a.answer);
+			for (InterviewAnswerBaseData a:patientAnswers.values()) {
+				if(AnswerTypesEnum.LIST.toString().equalsIgnoreCase(a.getAnswer_type()))
+					answers.put("" + a.objectId(), CategoryService.allAnswers.get(a.objectId()).getAllowedAnswers().get(Integer.valueOf(a.getInterview_answer())).getAnswer());
+				else
+					answers.put("" + a.objectId(), a.getInterview_answer());
 			}
 			request.setAttribute("answers", JSON.encode(answers));
 			forwardJSP("/user/home.jsp", request, response);

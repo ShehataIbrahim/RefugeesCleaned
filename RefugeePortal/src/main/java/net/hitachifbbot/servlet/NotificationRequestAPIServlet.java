@@ -1,15 +1,11 @@
 package net.hitachifbbot.servlet;
 
-import net.hitachifbbot.model.PasswordHash;
 import net.hitachifbbot.node.HubotCaller;
-import org.apache.commons.codec.DecoderException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 
 public class NotificationRequestAPIServlet extends APIServlet {
 

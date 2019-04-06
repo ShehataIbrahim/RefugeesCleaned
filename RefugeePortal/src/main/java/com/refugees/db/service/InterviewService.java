@@ -1,14 +1,13 @@
 package com.refugees.db.service;
 
+import com.refugees.db.model.Interview;
+import com.refugees.db.model.InterviewCategory;
+import net.hitachifbbot.utils.DBUtils;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.refugees.db.model.Interview;
-import com.refugees.db.model.InterviewCategory;
-
-import net.hitachifbbot.utils.DBUtils;
 
 public class InterviewService {
 	public static List<Interview> getAllInterviews() throws SQLException {
