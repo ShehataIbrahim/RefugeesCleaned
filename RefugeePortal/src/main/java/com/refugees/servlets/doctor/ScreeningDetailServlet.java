@@ -1,7 +1,14 @@
 package com.refugees.servlets.doctor;
 
+import com.refugees.consolidate.ConsolidationService;
+import com.refugees.consolidate.model.InterviewAnswerBaseData;
+import com.refugees.db.model.AnswerTypesEnum;
+import com.refugees.db.model.Category;
+import com.refugees.db.model.InterviewDisplayAnswer;
 import com.refugees.db.model.RefugeeUser;
+import com.refugees.db.service.CategoryService;
 import com.refugees.db.service.RefugeeUserService;
+import com.refugees.db.service.ScreeningQuestion;
 import net.hitachifbbot.filter.CSRFFilter;
 import net.hitachifbbot.servlet.AppServlet;
 import net.hitachifbbot.utils.DBUtils;
@@ -12,15 +19,42 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ScreeningDetailServlet extends AppServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer namminID = Integer.parseInt(req.getParameter("n_id"));
 		Integer categoryID = Integer.parseInt(req.getParameter("c_id"));
+
+		Map<String, InterviewAnswerBaseData> answers = ConsolidationService.getPatientAnswers(namminID.toString());
+
+
+
 		try {
-			List<ScreeningDetail> detail = DBUtils.preparedStatement(
+			Category cat=CategoryService.getHealtnCategories(categoryID.toString()).get(0);
+			String catId=String.valueOf(cat.getCategoryId());
+			Map<String,InterviewAnswerBaseData> questions=new HashMap<>();
+			for (InterviewAnswerBaseData a:answers.values()) {
+				if(a.getInterview_category_id().equalsIgnoreCase(catId)) {
+					InterviewDisplayAnswer base = CategoryService.allAnswers.get(a.objectId());
+					a.setQuestion_text(base.getInterviewItem());
+					if(a.getAnswer_text()==null)
+						a.setAnswer_text("");
+					if (AnswerTypesEnum.LIST.toString().equalsIgnoreCase(a.getAnswer_type()))
+					{
+						if(!questions.containsKey(a.objectId())) {
+							questions.put(a.objectId(), a);
+							questions.get(a.objectId()).setAnswer_text(CategoryService.allAnswers.get(a.objectId()).getAllowedAnswers().get(Integer.valueOf(a.getInterview_answer())).getAnswer());
+						}
+					}
+					else
+						questions.put("" + a.objectId(),a);
+				}
+			}
+	/*		List<ScreeningDetail> detail = DBUtils.preparedStatement(
 					"select sa.screening_q_id,sq.screening_q_text ,sa.answer from view_last_screening_answer as sa "
 							+ "join screening_q as sq on sq.screening_q_id = sa.screening_q_id "
 							+ "where sa.status='INITIAL' AND sa.nammin_id = ? AND sq.category_id = ? order by sa.screening_q_id;", // 選択されたカテゴリの問診結果を取得する
@@ -43,12 +77,12 @@ public class ScreeningDetailServlet extends AppServlet {
 					}, r -> {
 						r.next();
 						return r.getString(1);
-					});
+					});*/
 			RefugeeUser user = RefugeeUserService.findUserById(namminID);
 			req.setAttribute("namminID", namminID);
-			req.setAttribute("details", detail);
+			req.setAttribute("details", questions.values());
 			req.setAttribute("nammin_name", user.getUserName());
-			req.setAttribute("category_name", categoryName);
+			req.setAttribute("category_name", cat.getCategoryName());
 			req.setAttribute("category_id", categoryID);
 			req.setAttribute("csrfTokenName", CSRFFilter.CSRF_TOKEN_PARAM_NAME);
 			req.setAttribute("csrfToken", CSRFFilter.getCSRFToken(req));
@@ -66,7 +100,7 @@ public class ScreeningDetailServlet extends AppServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
 
-	private final static List<Integer> YES_NO_QUESTIONS;
+	/*private final static List<Integer> YES_NO_QUESTIONS;
 	static {
 		YES_NO_QUESTIONS = new ArrayList<Integer>();
 		YES_NO_QUESTIONS.add(0);
@@ -85,12 +119,13 @@ public class ScreeningDetailServlet extends AppServlet {
 		YES_NO_QUESTIONS.add(17);
 		YES_NO_QUESTIONS.add(18);
 	}
-
+*/
 	public class ScreeningDetail {
 
 		public String question;
 		public String answer;
 		public int questionId;
+
 
 		public ScreeningDetail(String question, String answer, int questionId) {
 			this.question = question;

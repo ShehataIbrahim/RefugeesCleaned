@@ -4,6 +4,9 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ResourceBundle"%>
+<%@ page import="com.refugees.db.service.ScreeningQuestion" %>
+<%@ page import="com.refugees.consolidate.model.InterviewAnswerBaseData" %>
+<%@ page import="java.util.Collection" %>
 <%@page pageEncoding="UTF-8" contentType="text/html" isELIgnored="false"%>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
@@ -42,13 +45,13 @@
             </tr>
 			<%
 			@SuppressWarnings("unchecked")
-			List<ScreeningDetail> details = (List<ScreeningDetail>) request
+			Collection<InterviewAnswerBaseData> details = (Collection<InterviewAnswerBaseData>) request
 						.getAttribute("details");
-				for (ScreeningDetail d : details) {
+				for (InterviewAnswerBaseData d : details) {
 			%>
 				<tr >
-					<td id="Question<%=d.getQuestionId()%>"><%=msgBundle.getString(d.getQuestion()) %></td>
-					<td><%=Validator.evaluateQuestionValue(d.getQuestionId(), d.getAnswer()) %></td>
+					<td id="Question<%=d.objectId()%>"><%=d.getQuestion_text() %></td>
+					<td><%=d.getAnswer_text() %></td>
 				</tr>
 				<%} %>
         </table>

@@ -98,7 +98,7 @@ public class CategoryService {
 
 		}
 	}
-	public static List<ScreeningQuestion> getCategoryQuestions(List<InterviewAnswerBaseData> answers) throws SQLException
+	public static List<ScreeningQuestion> getCategoryQuestions(Collection<InterviewAnswerBaseData> answers) throws SQLException
 	{
 		List<ScreeningQuestion> result=new ArrayList<>();
 		for(InterviewAnswerBaseData c:answers)

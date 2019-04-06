@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
-<meta name="format-detection" content="telephone=no" />
-<meta name="robots" content="noindex, nofollow" />
-<title>Migrants and Refugee Suport Portal</title>
-<link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
-<link href="/css/pc-style-basic.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Migrants and Refugee Suport Portal</title>
+    <link href="/css/html5-doctor-reset-stylesheet.min.css" rel="stylesheet" />
+    <link href="/css/pc-style-basic.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -15,18 +15,18 @@
     <header>
         <div>
             <h1><a href="index.html">Migrants and Refugee Suport Portal</a></h1>
-            <p><a href="javascript:confirmLogout()" onclick="">{翻訳ここから}ログアウト{ここまで翻訳}</a></p>
+            <p><a href="javascript:confirmLogout()" onclick="">Logout</a></p>
         </div>
     </header>
 
     <section id="dynamic-list-area">
-        <h2>{翻訳ここから}問診一覧{ここまで翻訳}</h2>
+        <h2>Interview list</h2>
         <ul class="tab-menu">
-            <li class="menu"><a href="#tab1" onclick="">{翻訳ここから}初回健康チェック{ここまで翻訳}</a></li>
-            <li class="menu"><a href="#tab2" onclick="">{翻訳ここから}内科{ここまで翻訳}</a></li>
-            <li class="menu"><a href="#tab3" onclick="">{翻訳ここから}COPD{ここまで翻訳}</a></li>
-            <li class="menu"><a href="#tab4" onclick="">{翻訳ここから}呼吸器内科{ここまで翻訳}</a></li>
-            <li class="menu"><a href="#tab5" onclick="">{翻訳ここから}糖尿病{ここまで翻訳}</a></li>
+            <li class="menu"><a href="#tab1" onclick="">Initial overwhole health check</a></li>
+            <li class="menu"><a href="#tab2" onclick="">Internal Medicine (IM)</a></li>
+            <li class="menu"><a href="#tab3" onclick="">COPD</a></li>
+            <li class="menu"><a href="#tab4" onclick="">Respiratory medicine</a></li>
+            <li class="menu"><a href="#tab5" onclick="">Diabetes</a></li>
         </ul>
         <div class="list-area">
             <!-- LOAD LIST HERE -->
@@ -43,11 +43,23 @@
 </body>
 <script>
     function confirmLogout(){
-        if(!confirm("{翻訳ここから}ログアウトしますか。{ここまで翻訳}")){
+        if(!confirm("Do you want to log out?")){
             return false;
         }else{
             form_logout.submit();
         }
+    }
+    function confirm(caller)
+    {
+        var id=$(caller).attr('id');
+        $.ajax({
+            type : "POST",
+            url : '/doctor/confirm?id='+id,
+
+            success : function(data) {
+                location.replace(location.pathname);
+            }
+        });
     }
 </script>
 </html>
