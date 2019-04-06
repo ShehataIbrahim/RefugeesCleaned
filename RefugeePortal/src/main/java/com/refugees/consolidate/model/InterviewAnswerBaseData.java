@@ -42,6 +42,8 @@ public class InterviewAnswerBaseData {
     }
 
     public String getInterview_answer() {
+        if(interview_answer==null)
+            interview_answer="";
         return interview_answer;
     }
 

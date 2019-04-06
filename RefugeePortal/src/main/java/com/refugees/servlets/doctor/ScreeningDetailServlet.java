@@ -47,7 +47,7 @@ public class ScreeningDetailServlet extends AppServlet {
 					{
 						if(!questions.containsKey(a.objectId())) {
 							questions.put(a.objectId(), a);
-							questions.get(a.objectId()).setAnswer_text(CategoryService.allAnswers.get(a.objectId()).getAllowedAnswers().get(Integer.valueOf(a.getInterview_answer())).getAnswer());
+							questions.get(a.objectId()).setAnswer_text(Integer.valueOf(a.getInterview_answer())==1?"YES":"NO");
 						}
 					}
 					else

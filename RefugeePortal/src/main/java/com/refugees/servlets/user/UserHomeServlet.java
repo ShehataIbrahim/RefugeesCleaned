@@ -61,7 +61,7 @@ public class UserHomeServlet extends AppServlet {
 			HashMap<String, String> answers = new HashMap<>();
 			for (InterviewAnswerBaseData a:patientAnswers.values()) {
 				if(AnswerTypesEnum.LIST.toString().equalsIgnoreCase(a.getAnswer_type()))
-					answers.put("" + a.objectId(), CategoryService.allAnswers.get(a.objectId()).getAllowedAnswers().get(Integer.valueOf(a.getInterview_answer())).getAnswer());
+					answers.put("" + a.objectId(), Integer.valueOf(a.getInterview_answer())==1?"YES":"NO");
 				else
 					answers.put("" + a.objectId(), a.getInterview_answer());
 			}

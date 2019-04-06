@@ -232,14 +232,9 @@ public class ChatbotCallBack {
                 try {
                     if(questions.get(currentQuestionId).getType()== AnswerTypesEnum.LIST)
                     {
-                        for(AllowedAnswer a: questions.get(currentQuestionId).getAllowedAnswers())
-                        {
-                            if(a.getAnswer().equalsIgnoreCase(messageText))
-                            {
-                                messageText=String.valueOf(a.getAnswerId());
-                                break;
-                            }
-                        }
+                       if("YES".equalsIgnoreCase(messageText))
+                           messageText="1";
+                       else messageText="0";
                     }
                     service.consolidateInterviewAnswer(refugeeUser.getId().toString(), questions.get(currentQuestionId), messageText);
                 } catch (IOException e) {
