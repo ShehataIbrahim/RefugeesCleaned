@@ -1,5 +1,7 @@
 package com.refugees.portal.db.health.model;
 
+import com.google.common.base.MoreObjects;
+
 public class AllowedAnswer {
     private int answerId;
     private String answer;
@@ -26,5 +28,14 @@ public class AllowedAnswer {
 
     public void setTranslatedAnswer(String translatedAnswer) {
         this.translatedAnswer = translatedAnswer;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("answerId", answerId)
+                .add("answer", answer)
+                .add("translatedAnswer", translatedAnswer)
+                .toString();
     }
 }

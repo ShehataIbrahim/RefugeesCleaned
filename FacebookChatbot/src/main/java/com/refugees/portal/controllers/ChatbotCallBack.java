@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 import com.refugees.portal.db.health.model.AllowedAnswer;
+import com.refugees.portal.db.health.model.AnswerTypesEnum;
 import com.refugees.portal.db.health.model.InterviewDisplay;
 import com.refugees.portal.db.health.model.QuestionDependency;
 import com.refugees.portal.services.ConsolidateService;
@@ -229,20 +230,44 @@ public class ChatbotCallBack {
 
                 System.out.println("Next Question to go is :" + nextQuestionId);
                 try {
+                    if(questions.get(currentQuestionId).getType()== AnswerTypesEnum.LIST)
+                    {
+                        for(AllowedAnswer a: questions.get(currentQuestionId).getAllowedAnswers())
+                        {
+                            if(a.getAnswer().equalsIgnoreCase(messageText))
+                            {
+                                messageText=String.valueOf(a.getAnswerId());
+                                break;
+                            }
+                        }
+                    }
                     service.consolidateInterviewAnswer(refugeeUser.getId().toString(), questions.get(currentQuestionId), messageText);
                 } catch (IOException e) {
                     sendTextMessage(senderId, Translator.translateFromEnglish(refugeeUser.getTranslateLangCode(), "Sorry it seems there is a technical issue in processing your answer, please return to help desk to solve it code 'RES_KEY_0002' "));
                     return;
                 }
                 // dependencies handling
-                if(nextQuestionId != 0&& questionDependencies.containsKey(questions.get(nextQuestionId).objectId()))
-                {
+                if (nextQuestionId != 0 && questionDependencies.containsKey(questions.get(nextQuestionId).objectId())) {
                     QuestionDependency dep = questionDependencies.get(questions.get(nextQuestionId).objectId());
                     try {
                         Map<String, InterviewAnswerBaseData> mp = service.getPatientAnswers(refugeeUser.getId().toString());
                         InterviewAnswerBaseData ans = mp.get(dep.getInterviewId());
-                        if(!String.valueOf(dep.getValidAnswer().getAnswerId()).equalsIgnoreCase(ans.getInterview_answer()))
-                            nextQuestionId++;
+                        System.out.println("Trace:\t"+questions.get(nextQuestionId).objectId());
+                        System.out.println("Trace: "+dep.getValidAnswer());
+                        System.out.println("Input answer:"+ans.getInterview_answer());
+                        try {
+                            if (ans != null)
+                                if (!String.valueOf(dep.getValidAnswer().getAnswerId()).equalsIgnoreCase(ans.getInterview_answer()))
+                                {
+                                    nextQuestionId++;
+                                    if(nextQuestionId==questions.size())
+                                        nextQuestionId=0;
+                                }
+                        } catch (Exception e) {
+                            System.out.println("Some Error occured " + e.getMessage());
+                            System.out.println("Trace: "+dep.getValidAnswer());
+                            System.out.println("Input answer:"+ans.getInterview_answer());
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -343,6 +368,7 @@ public class ChatbotCallBack {
     }
 
     private static void handleSendException(Exception e) {
+        e.printStackTrace();
         logger.warn("Message could not be sent. An unexpected error occurred." + e.getMessage());
     }
 

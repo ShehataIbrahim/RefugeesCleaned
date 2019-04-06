@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -18,6 +19,10 @@ public class BeanConfigurations {
     @Singleton
     @Bean
     public List<InterviewDisplay> getQuestions() {
-        return new ArrayList<>(questionsService.getAllInterviewQuestionsView());
+        List<InterviewDisplay> questions=new ArrayList<>(questionsService.getAllInterviewQuestionsView());
+        Collections.sort(questions,(o1, o2) -> {
+            return o1.objectId().compareTo(o2.objectId().toString());
+        });
+        return questions;
     }
 }
