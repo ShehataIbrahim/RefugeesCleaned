@@ -1,0 +1,12 @@
+.gradle
+.idea
+RefugeePortal.iml
+bin
+build
+.classpath
+.project
+node_modules
+/PeOPLeNanminSample/tmlog.lck
+/PeOPLeNanminSample/tmlog24.log
+/PeOPLeNanminSample/transaction-logs/tmlog2.log
+out
